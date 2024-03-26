@@ -1,4 +1,4 @@
-client = new Paho.MQTT.Client("mqtt.eclipseprojects.io/mqtt", 443, "clientId");
+client = new Paho.MQTT.Client("wss://mqtt.eclipseprojects.io/mqtt:443", "clientId");
 client.onConnectionLost = onConnectionLost;
 client.onMessageArrived = onMessageArrived;
 
