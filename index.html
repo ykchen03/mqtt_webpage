@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<head>
+  <title>MQTT</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>MQTT</h1>
+        <p id="status" style="color : orange">Connecting</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="topic">Topic</label>
+          <input type="text" class="form-control" id="topic" value="Doitstudio">
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <input type="text" class="form-control" id="message">
+        </div>
+        <button class="btn btn-primary" id="subscribe">Subscribe</button>
+        <button class="btn btn-primary" id="unsubscribe" disabled>Unsubscribe</button>
+        <button class="btn btn-info" id="publish">Publish</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <textarea id="console" readonly style="width: 100%; height: 200px;color:white; background-color: black;"></textarea>
+      </div>
+    </div>
+  </div>
+  <footer class="text-center text-lg-start bg-body-tertiary text-muted">
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4"> Library </h6>
+            <p>
+              <a href="#!" class="text-reset">Jquery</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Bootstrap</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Paho Mqtt</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Momentjs</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Author</h6>
+            <p>
+              Chen Yu-Kuan
+            </p>
+            <p>
+              Chung Hua University
+            </p>
+            <p>
+              Dept of Computer Science & Infromation Engineering
+            </p>
+            <p>
+              b11002089@g.chu.edu.tw
+            </p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        <p>All content on this website is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="nofollow noreferrer">Creative Commons Attribution-ShareAlike 4.0 International License</a>. You are free to share and adapt the content for any purpose, provided you give appropriate credit and distribute your contributions under the same license. For more information, please visit the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="nofollow noreferrer">CC BY-SA 4.0 license page</a>.</p>
+    </div>
+    <!-- Copyright -->
+  </footer>
+</body>
+<script src="js/app.js" type="text/javascript"></script>
+</html>
