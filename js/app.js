@@ -7,62 +7,77 @@ let connectingInterval;
 
 $().ready(() => {
     client.connect({onSuccess:onConnect});
-
-    let dotCount = 0;
-
-    connectingInterval = setInterval(() => {
-        dotCount = (dotCount + 1) % 4; // Cycle dotCount between 0 and 3
-        let dots = '.'.repeat(dotCount); // Create a string with dotCount dots
-        $('#status').text('Connecting' + dots);
-    }, 500); // Update every 500 milliseconds
 });
 
 function ConsoleLog(message) {
     let consoleElement = $('#console');
     let currentTime = moment().format();    ;
-    consoleElement.val(consoleElement.val() + message + " - " + currentTime +'\n'); // Append the text to the console
+    consoleElement.val(consoleElement.val() + message + " - " + currentTime +'\n');
     consoleElement.scrollTop(consoleElement[0].scrollHeight);
 }
 
 function onConnect() {
-    console.log("onConnect");
     ConsoleLog("Connected");
-    clearInterval(connectingInterval);
     $("#status").text("Connected").css("color", "green");
+    $("#subscribe").prop("disabled", false);
+    $("#publish").prop("disabled", false);
+    $("#shortcut button").prop("disabled", false);
 }
 
 function onConnectionLost(responseObject) {
     if (responseObject.errorCode !== 0) {
-        ConsoleLog("onConnectionLost:"+responseObject.errorMessage);
-        $("#status").text("Disconnected").css("color", "red");
-        clearInterval(connectingInterval);
+        ConsoleLog("onConnectionLost: " + responseObject.errorMessage);
+        $("#status").text("Disconnected(Reload to reconnect)").css("color", "red");
     }
+    $("#subscribe").prop("disabled", true);
+    $("#publish").prop("disabled", true);
+    $("#shortcut button").prop("disabled", true);
 }
 
 function onMessageArrived(message) {
     ConsoleLog("Message Arrived: "+message.payloadString);
 }
 
+function publish(topic, text) {
+    let message = new Paho.MQTT.Message(text);
+    message.destinationName = topic;
+    console.log(topic)
+    client.send(message);
+    ConsoleLog("Published: \"" + text + "\" to " + topic);
+}
+
 $("#subscribe").click(() => {
     let topic = $("#topic").val();
-    client.subscribe(topic);
-    ConsoleLog("Subscribed to: " + topic);
-    $("#subscribe").prop("disabled", true);
-    $("#unsubscribe").prop("disabled", false);
-});
-
-$("#unsubscribe").click(() => {
-    let topic = $("#topic").val();
-    client.unsubscribe(topic);
-    ConsoleLog("Unsubscribed from: " + topic);
-    $("#subscribe").prop("disabled", false);
-    $("#unsubscribe").prop("disabled", true);
+    if(isSubscribed){
+        client.unsubscribe(topic);
+        ConsoleLog("Unsubscribed from: " + topic);
+        $("#subscribe").text("Subscribe");
+        $("#topic").prop("disabled", false);
+        isSubscribed = false;
+    }
+    else {
+        client.subscribe(topic);
+        ConsoleLog("Subscribed to: " + topic);
+        $("#subscribe").text("Unsubscribe");
+        $("#topic").prop("disabled", true);
+        isSubscribed = true;
+    }
 });
 
 $("#publish").click(() => {
-    let text = $("#message").val(), topic = $("#topic").val();
-    message = new Paho.MQTT.Message(text);
-    message.destinationName = topic;
-    client.send(message);
-    ConsoleLog("Published: " + text + " to " + topic);
+    publish($("#topic").val(), $("#message").val());
+});
+
+$("#shortcut button").click((e) => {
+    if(e.target.textContent === "風"){
+        publish( $("#topic").val(), "風");
+    } else if(e.target.textContent === "狂風"){
+        publish( $("#topic").val(), "狂風");
+    } else if(e.target.textContent === "天黑"){
+        publish( $("#topic").val(), "天黑");
+    } else if(e.target.textContent === "彩虹"){
+        publish( $("#topic").val(), "彩虹");
+    } else if(e.target.textContent === "流星"){
+        publish( $("#topic").val(), "流星");
+    }
 });
