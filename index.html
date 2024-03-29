@@ -8,6 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+  <script src="https://kit.fontawesome.com/b1d1a84a25.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/style.css">
   <script>
     var isSubscribed = false;
@@ -23,18 +24,19 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <div class="form-group">
-          <label for="topic">Topic</label>
-          <input type="text" class="form-control" id="topic" value="DoitStudio">
-          <button class="btn btn-primary" id="subscribe" disabled>Subscribe</button>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="topic" value="DoitStudio" aria-label="Topic" placeholder="Topic">
+          <button type="button" class="btn btn-primary" id="subscribe" disabled>Subscribe</button>
         </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <input type="text" class="form-control" id="message">
-          <button class="btn btn-info" id="publish" disabled>Publish</button>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="message" aria-label="Message" placeholder="Message">
+          <button type="button" class="btn btn-success" id="speech">
+            <i class="fa-solid fa-microphone"></i>
+          </button>
+          <button type="button" class="btn btn-info" id="publish" disabled>Publish</button>
         </div>
-        <div class="form-group">
-          <label for="shortcut">Shortcut</label>
+        <div class="form-group mb-3">
+          <label>Shortcut</label>
           <div id="shortcut">
             <button class="btn wind">風</button>
             <button class="btn strong-wind">狂風</button>

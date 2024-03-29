@@ -83,3 +83,30 @@ $("#shortcut button").click((e) => {
         publish( $("#topic").val(), "Off");
     }
 });
+
+$("#speech").click(() => {
+    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = new SpeechRecognition();
+
+    recognition.onstart = () => {
+        ConsoleLog('Voice recognition activated. Try speaking into the microphone.');
+    }
+    
+    recognition.onspeechend = () => {
+        ConsoleLog('You were quiet for a while so voice recognition turned itself off.');
+    }
+
+    recognition.onerror = (event) => {
+        if(event.error == 'no-speech') {
+            ConsoleLog('No speech was detected. Try again.');  
+        }
+    }
+
+    recognition.onresult = (event) => {
+        let current = event.resultIndex;
+        let transcript = event.results[current][0].transcript;
+        $("#message").val(transcript);
+    }
+    
+    recognition.start();
+});
