@@ -84,30 +84,55 @@ $("#shortcut button").click((e) => {
     }
 });
 
-$("#speech").click(() => {
-    let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    let recognition = new SpeechRecognition();
-    recognition.lang = 'zh-TW';
+var recognition = undefined;
 
-    recognition.onstart = () => {
-        ConsoleLog('Voice recognition activated. Try speaking into the microphone.');
-    }
-    
-    recognition.onspeechend = () => {
-        ConsoleLog('You were quiet for a while so voice recognition turned itself off.');
-    }
+function startSpeech() {
+        recognition = new ( window.SpeechRecognition || window.webkitSpeechRecognition)()
+        recognition.lang = 'zh-TW';
 
-    recognition.onerror = (event) => {
-        if(event.error == 'no-speech') {
-            ConsoleLog('No speech was detected. Try again.');  
+        recognition.onstart = () => {
+            ConsoleLog('Voice recognition activated. Try speaking into the microphone.');
         }
-    }
+        
+        recognition.onspeechend = () => {
+            recognition.stop();
+            ConsoleLog('You were quiet for a while so voice recognition turned itself off.');
+            stopSpeech();
+            //console.log(isRecognizing);
+        }
 
-    recognition.onresult = (event) => {
-        let current = event.resultIndex;
-        let transcript = event.results[current][0].transcript;
-        $("#message").val(transcript);
+        recognition.onerror = (event) => {
+            if(event.error == 'no-speech') {
+                ConsoleLog('No speech was detected. Try again.');
+                stopSpeech();  
+            }
+        }
+
+        recognition.onresult = (event) => {
+            let current = event.resultIndex;
+            let transcript = event.results[current][0].transcript;
+            console.log(transcript);
+            $("#message").val(transcript);
+        }
+        
+        recognition.start();
+        isRecognizing = true;
+
+        $("#speech i").removeClass("fa-microphone").addClass("fa-microphone-slash");
+        $("#speech").removeClass("btn-success").addClass("btn-danger");
+}
+
+function stopSpeech() {
+    isRecognizing = false;
+    //recognition = undefined;
+    $("#speech i").removeClass("fa-microphone-slash").addClass("fa-microphone");
+    $("#speech").removeClass("btn-danger").addClass("btn-success");
+}
+
+$("#speech").click(() => {
+    if(!isRecognizing){
+        startSpeech();
+    } else {
+        recognition.stop();
     }
-    
-    recognition.start();
 });
