@@ -79,5 +79,7 @@ $("#shortcut button").click((e) => {
         publish( $("#topic").val(), "彩虹");
     } else if(e.target.textContent === "流星"){
         publish( $("#topic").val(), "流星");
+    } else if(e.target.textContent === "Off"){
+        publish( $("#topic").val(), "Off");
     }
 });

@@ -26,6 +26,10 @@
     animation-iteration-count: infinite;
 }
 
+.off{
+    background-color: grey;
+}
+
 @keyframes rainbow-bg{
     100%,0%{
         background-color: rgb(255,0,0);
