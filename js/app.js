@@ -87,6 +87,7 @@ $("#shortcut button").click((e) => {
 $("#speech").click(() => {
     let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     let recognition = new SpeechRecognition();
+    recognition.lang = 'zh-TW';
 
     recognition.onstart = () => {
         ConsoleLog('Voice recognition activated. Try speaking into the microphone.');
