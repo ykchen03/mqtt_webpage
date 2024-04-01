@@ -90,11 +90,11 @@ recognition.lang = 'zh-TW';
 recognition.onstart = () => {
     ConsoleLog('Voice recognition activated. Press stop button to stop recognition.');
 }
-
+/*
 recognition.onspeechend = () => {
     ConsoleLog('Debug: onspeechend');
     recognition.stop();
-}
+}*/
 
 recognition.onresult = (event) => {
     ConsoleLog('Debug: onresult');
