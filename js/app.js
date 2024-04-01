@@ -84,21 +84,21 @@ $("#shortcut button").click((e) => {
     }
 });
 
-var recognition = new ( window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition )();
+var recognition = new ( window.SpeechRecognition || window.webkitSpeechRecognition)();
 recognition.lang = 'zh-TW';
-//recognition.continuous = false;
 
 recognition.onstart = () => {
     ConsoleLog('Voice recognition activated. Press stop button to stop recognition.');
 }
 
 recognition.onspeechend = () => {
+    ConsoleLog('Debug: onspeechend');
     recognition.stop();
 }
 
 recognition.onresult = (event) => {
-    let current = event.resultIndex;
-    let transcript = event.results[current][0].transcript;
+    ConsoleLog('Debug: onresult');
+    let transcript = event.results[0][0].transcript;
     $("#message").val(transcript);
 }
 
