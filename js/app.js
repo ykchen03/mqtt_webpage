@@ -90,16 +90,16 @@ recognition.continuous = true;
 recognition.interimResults = true;
 
 recognition.onstart = () => {
-    ConsoleLog('Voice recognition activated. Press stop button to stop recognition.');
+    ConsoleLog('Voice recognition activated. Press Mute button to stop recognition.');
 }
 
 recognition.onspeechend = () => {
-    ConsoleLog('Debug: onspeechend');
+    //ConsoleLog('Debug: onspeechend');
     recognition.stop();
 }
 
 recognition.onresult = (event) => {
-    ConsoleLog('Debug: onresult');
+    //ConsoleLog('Debug: onresult');
     let transcript = event.results[0][0].transcript;
     $("#message").val(transcript);
 }
