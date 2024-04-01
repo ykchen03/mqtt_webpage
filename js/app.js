@@ -84,17 +84,19 @@ $("#shortcut button").click((e) => {
     }
 });
 
-var recognition = new ( window.SpeechRecognition || window.webkitSpeechRecognition)();
+var recognition = new (webkitSpeechRecognition || SpeechRecognition)();
 recognition.lang = 'zh-TW';
+recognition.continuous = true;
+recognition.interimResults = true;
 
 recognition.onstart = () => {
     ConsoleLog('Voice recognition activated. Press stop button to stop recognition.');
 }
-/*
+
 recognition.onspeechend = () => {
     ConsoleLog('Debug: onspeechend');
     recognition.stop();
-}*/
+}
 
 recognition.onresult = (event) => {
     ConsoleLog('Debug: onresult');
