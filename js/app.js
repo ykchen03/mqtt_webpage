@@ -111,7 +111,7 @@ function startSpeech() {
         recognition.onresult = (event) => {
             let current = event.resultIndex;
             let transcript = event.results[current][0].transcript;
-            console.log(transcript);
+            //console.log(transcript);
             $("#message").val(transcript);
         }
         
